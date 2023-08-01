@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+<style>
+    .number-input {
+        margin-bottom: 10px;
+    }
+</style>
+    {% block content %}
+
+    <br><br>
+    <center><h3>Calculator</h3>
+    <label for="count" class="btn btn-warning">How many numbers to add:</label>
+    <input type="number" id="count" min="1">
+    <button onclick="genInputBox()" class="btn btn-primary">Generate Input Boxes</button>
+    <br><br>
+    <div id="input-boxes"></div>
+    <br>
+    <button style="color: aqua;" onclick="getSumFromAPI()" class="btn btn-success">Get Sum from My API</button>
+    <br><br><br>
+    <p id="sum"></p></center>
+    <script>
+        function genInputBox() {
+            const count = document.getElementById('count').value;
+            const inputBoxDiv = document.getElementById('input-boxes');
+            inputBoxDiv.innerHTML = '';
+            for (let i = 1; i <= count; i++) {
+                const inputBox = document.createElement('input');
+                inputBox.className = 'number-input';
+                inputBox.type = 'number';
+                inputBox.placeholder = 'Enter Number ' + i;
+                inputBox.id = 'num' + i;
+                inputBoxDiv.appendChild(inputBox);
+            }
+        }
+        function getSumFromAPI() {
+            const count = document.getElementById('count').value;
+            const input = [];
+            for (let i = 1; i <= count; i++) {
+                const inputBox = document.getElementById('num' + i);
+                const value = parseInt(inputBox.value);
+                input.push({ ['num' + i]: value });
+            }
+            const csrfToken = document.cookie.split('; ').find(row => row.startsWith('csrftoken=')).split('=')[1];
+            fetch('/total_sum/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken,   
+                },
+                body: JSON.stringify({ count, input }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const sum = data.sum;
+                    document.getElementById('sum').textContent = 'Total Sum is: ' + sum;
+                })
+                .catch(error => console.error(error));
+        }
+    </script>
+{%endblock%}

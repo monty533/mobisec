@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mobisec</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js">
+    </script>
+    <style>
+    .i-circle {
+      display: inline-block;
+      background-color: crimson;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 30px; /* set to same size as width, height */
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+    .i-circle1 {
+      display: inline-block;
+      background-color: turquoise;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 30px; /* set to same size as width, height */
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+    .i-circle2 {
+      display: inline-block;
+      background-color: yellowgreen;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 30px; /* set to same size as width, height */
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+    .i-circle3 {
+      display: inline-block;
+      background-color: violet;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 30px; /* set to same size as width, height */
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+    .i-circle4 {
+      display: inline-block;
+      background-color: blue;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 30px; /* set to same size as width, height */
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+    .i-circle5 {
+      display: inline-block;
+      background-color: tomato;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 30px; /* set to same size as width, height */
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+    .i-circle6 {
+      display: inline-block;
+      background-color: aqua;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 22px;
+      line-height: 30px; /* set to same size as width, height */
+      width: 30px;
+      height: 30px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <center><h4 style="color: blueviolet;" class="offcanvas-title" id="offcanvasDarkNavbarLabel"><span class="i-circle">F</span><span class="i-circle1">R</span><span class="i-circle2">I</span><span class="i-circle3">E</span><span class="i-circle4">N</span><span class="i-circle5">D</span><span class="i-circle6">S</span></h4></center>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom:-2px;">
+                {{ message }}
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+      
+  <nav class="navbar navbar-dark bg-dark navbar-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Mobisec Technology</a>
+          {% if user.is_authenticated %}
+            <a class="navbar-brand" href="/">Hello, {{request.user.name}}</a>
+            <a class="navbar-brand" href="/logout">Logout</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 style="color: chartreuse;" class="offcanvas-title" id="offcanvasDarkNavbarLabel"><span class="i-circle">F</span><span class="i-circle1">R</span><span class="i-circle2">I</span><span class="i-circle3">E</span><span class="i-circle4">N</span><span class="i-circle5">D</span><span class="i-circle6">S</span></h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <h2 style="color: crimson;">Friend</h2>
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a style="color: aqua;" class="nav-link active" aria-current="page" href="/add">&nbsp;&nbsp;&nbsp;&nbsp; -: Add Friend</a>
+                  </li>
+                  <li class="nav-item">
+                    <a style="color: bisque;" class="nav-link active" aria-current="page" href="/update_user">&nbsp;&nbsp;&nbsp;&nbsp; -: Update Friend</a>
+                  </li>
+                  <li class="nav-item">
+                    <a style="color: aquamarine;" class="nav-link active" aria-current="page" href="/list">&nbsp;&nbsp;&nbsp;&nbsp; -: List Friend</a>
+                  </li>
+                
+                </ul>
+              <h2 style="color: violet;">My Pet</h2>
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a style="color: chocolate;" class="nav-link active" aria-current="page" href="/cat/mypet/">&nbsp;&nbsp;&nbsp;&nbsp; -: My pet</a>
+                </li>
+                <h2 style="color: blue;"">Calculator</h2>
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a style="color: antiquewhite;" class="nav-link active" aria-current="page" href="/calculator">&nbsp;&nbsp;&nbsp;&nbsp; -: Calculator</a>
+                  </li>
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    {% block content%} 
+    {%endblock%}
+</body>
+</html>

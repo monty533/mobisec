@@ -1,0 +1,78 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{%block content%}
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+ 
+    
+    th:nth-child(even),td:nth-child(even) {
+        background-color: lavender
+    }
+    
+    th:nth-child(odd),td:nth-child(odd) {
+        background-color: rgba(150, 212, 212, 0.4);
+    }
+    </style>
+    </head>
+    <body>
+    <form method="post" action="">
+        {% csrf_token %}
+    <div class="container">
+        <center><h3 class="mt-5">List of all friends</h3></center>
+
+        <table style="width:100%" class="table table-borderd">
+        <tr>
+            <th>NAME</th>
+            <th>DOB</th>
+            <th>HOBBY</th>
+            <th>Image</th>
+            <th>Gender</th>
+            <th>Action</th>
+        </tr>
+        {% for choice in data %}
+        <tr>
+            <td>{{ choice.name|title }}</td>
+            <td>{{ choice.dob }}</td>
+            <td>{{ choice.hobby }} </td>
+            <td><img src="{{ choice.photo.url }}" width="150" height="150"></td>
+            <td>{{ choice.gender|capfirst }} </td>
+            <td><button type="button" id="" value="{{choice.id}}" class="delete-btn btn btn-outline-danger">Delete</button> </td>
+            
+        </tr>
+        {% endfor %}
+        </table>
+
+    </div>
+</form>
+
+    <script>
+        $(document).ready(function(){
+                $(".delete-btn").click(function(){
+                var id=$(this).val();
+                $.ajax({
+                    url : "/delete_user",
+                    type : "POST",
+                    data : {"id":id}, 
+            
+                success : function(json) {
+                    alert("Deleted Successfully")
+                    window.location.reload()
+                },
+    
+                error : function(xhr,errmsg,err) {
+                    alert("error")
+                }
+            });
+        });
+    });
+            
+    
+    
+    
+        </script>
+    {%endblock%}
+

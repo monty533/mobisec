@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+    <div class="container">
+
+    <center><h3 class="mt-5">Add friend</h3> <hr><br></center>
+    
+    <form method="POST"  enctype="multipart/form-data" action="/add_friend/">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="name" class="form-label" >NAME</label>
+        <input name = "name" id="name" type="TEXT" class="form-control" id="name" required >
+        
+      </div>
+      <div class="mb-3">
+        <label for="date" class="form-label">Dob</label>
+        <input name="dob"  id="dob" type="date" class="form-control" required >
+        
+      </div>
+     
+      <div class="mb-3">
+        <label for="photo" class="form-label">Upload Photo</label>
+        <input type="file" id="photo" name="photo"  required >
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label" required >Gender: </label>
+      <input type="radio" id="gender" name="gender" value="male"><b> Male</b>
+      <input type="radio" id="gender" name="gender" value="female"> <b>Female</b>
+    </div>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Hobby</label>
+        <input name="hobby" id ="hobby" type="text" class="form-control" id="hobby" required >  
+      </div>
+       <center><button type="submit" style="color: black;" class="btn btn-danger">add user</button></center>
+    </form>
+    
+    </div>
+
+
+ 
+
+<script>
+$(document).ready(function(){
+$("#submit").click(function(){
+var name =$("#name").val();
+var dob =$("#dob").val();
+var photo =$("#photos").val();
+alert(photo)
+var gender =$("#gender").val();
+var hobby =$("#hobby").val();
+var data={
+    "name":name,
+    "dob":dob,
+    "photo":photo,
+    "gender":gender,
+    "hobby":hobby
+
+}
+console.log(data);
+$.ajax({
+        url : "add_friend",
+        type : "POST",
+        data : data, 
+        
+        success : function(json) {
+            alert("submit success")
+        },
+
+        error : function(xhr,errmsg,err) {
+            alert("error")
+        }
+    });
+  });
+  });
+</script>
+
+{%endblock%}

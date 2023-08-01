@@ -1,0 +1,65 @@
+{% extends 'base.html'%}
+
+{%block content%}
+<br><br>
+<center><h3>Search friend</h3></center>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<div id="">
+    <form id='search_friend_form' action="/update" method="GET">
+        {% csrf_token %}
+        <center><label style="color: blueviolet;" class="btn btn-warning">Name:</label>
+        <input id="search_user" name="searched_user" placeholder="search a user">
+        <input type="hidden" id="friend_id" name="friend_id" value="">
+        <input type="hidden" name="show_form" value="1">
+        <input type="submit" id="select_frnd" onclick=get_friend() class="btn btn-primary" value="Select"></center>
+    </form>
+</div>
+<script>
+$(document).ready(function(){
+        $("#search_user").autocomplete({
+            minlenght:2,
+            source:function(request, response){
+                var name = $("#search_user").val();
+                $.ajax({
+                    url: "/search_user/",
+                    type: 'get',
+                    dataType:'json',
+                    asyn:false,
+                    data:{
+                        name : name
+                    },
+                    success:function(data){
+                        console.log('In Success of Function',  data);
+                        friends = []
+                        if (data.length == 0){
+                            alert("No user found with this given name")
+                        }
+                        for (i=0; i<data.length; i++){
+                            friends.push(data[i].fields.name + " (ID-" + data[i].pk + ")");
+                        }
+                        console.log(friends)
+                        response(friends)
+                    },
+                    error:function(){
+                        console.log('There is some error');
+                    }
+                })
+            }
+        })
+    })
+
+    function get_friend(){
+        friend = $("#search_user").val();
+            if (!friend){
+                alert("Please select a user To update");
+            }
+        friend_id = null;
+        match = friend.match(/(.*)\(.*ID\s*-\s*(\d+)\)/);
+        friend_name = match[1];
+        friend_id = match[2];
+        $("#friend_id").val(friend_id);
+        return true;
+    }
+</script>   
+{%endblock%}

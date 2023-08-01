@@ -1,0 +1,21 @@
+POST method- http://127.0.0.1:8000/login_api/register_user/
+
+request parameter
+
+{
+  "email":"abc@gmail.com",
+  "password":"121311",
+  "contact_no": 123432,
+  "name":"abc"
+}
+
+POST method - http://127.0.0.1:8000/login_api/login_user/
+
+{
+  "email":"abc@gmail.com",
+  "password":121311
+}
+
+GET method - http://127.0.0.1:8000/login_api/fetch_user/
+
+X-Authorization with access token

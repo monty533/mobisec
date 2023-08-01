@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+    <div class="container">
+      <center><h3 class="mt-5">update the details of the friend</h3> <hr><br></center>
+
+    <form method="post" enctype="multipart/form-data" action="/update">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="name" class="form-label" >NAME</label>
+        <input name = "name" id="name" type="TEXT" class="form-control" value="{{data.name}}" required >
+        
+      </div>
+      <div class="mb-3">
+        <label for="date" class="form-label">Dob</label>
+        <input name="dob" value="{{data.dob|date:"Y-m-d" }}" id="dob" type="date" class="form-control" required >
+        <input type="hidden" name="id" value="{{data.id}}">
+        
+      </div>
+     
+      <div class="mb-3">
+        <label for="photo" class="form-label">Upload Photo</label>
+        <input type="file" value="" id="photo_upload" name="upload_photo" accept="image/png, image/jpeg">
+        <img src="{{data.photo}}">
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label" required >Gender: </label>
+     {% if data.gender == 'male'%}
+      <input type="radio" id="gender" name="gender" value="male"  checked="true"><b> Male</b>
+      <input type="radio" id="gender" name="gender" value="female"> <b>Female</b>
+      {% else %}
+      <input type="radio" id="gender" name="gender" value="male"><b> Male</b>
+      <input type="radio" id="gender" name="gender" value="female" checked="true"> <b>Female</b>
+      {% endif %}
+    </div>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Hobby</label>
+        <input name="hobby" value="{{data.hobby}}" id ="hobby" type="TEXT" class="form-control" id="hobby" required  >  
+      </div>
+      
+      <center><button type="submit" id="submit" class="btn btn-primary">update user</button></center>
+    </form>
+    
+    </div>
+    {%endblock%}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+    
+    {% block content %}
+    <br><br>
+    <center><h3>My Pet</h3>
+    <form method="POST" action="/cat/mypet/">
+        {% csrf_token %}
+        <label for="name" class="btn btn-warning">Pet Name:</label>
+        <input type="text" name="name" id="name" required>
+        <button type="submit" class="btn btn-primary">Fetch Cat Pic</button>
+    </form>
+    {% if all_data %}
+        <h4>all cats:</h4>
+        <ul>
+            {% for cat in all_data %}
+                <li>
+                    <img src="{{ cat.image_url }}" alt="Cat Image" style="height: 300px;width: 300px;">
+                    <p style="color: crimson;">Source: ["id":"{{cat.id}}","url":"{{cat.image_url}}","name":"{{cat.name}}"]</p>
+                    
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+        </center>
+    {%endblock%}
+
